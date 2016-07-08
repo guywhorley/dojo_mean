@@ -1,0 +1,16 @@
+<html>
+<head>
+    <title>Users</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <h2>Here are all the users:</h2>
+    <% for (var u in users) { %>
+        <p class="user-details">
+            Name: &nbsp<%= users[u].name %><br />
+            Email: <%= users[u].email %>
+        </p>
+        <hr />
+    <% } %>
+ </body>
+</html>

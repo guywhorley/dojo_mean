@@ -1,0 +1,10 @@
+body {
+  background-color: black;
+  color: white;
+  font-family: "Courier";
+  font-size: 1.2 rem;
+  text-align: center;
+}
+.message {
+  margin-top: 20% 
+}
