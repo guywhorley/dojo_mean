@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Your Survey Data</title>
+    <link rel="stylesheet" href="./css/styles.css">
+  </head>
+  <body>
+    <div id="results">
+        <h3>Survey Data</h3>
+            <strong>Name:&nbsp;&nbsp;&nbsp;&nbsp;</strong>
+            <%= data['name'] %><br />
+
+            <strong>Location:</strong>
+            <%= data['location'] %><br />
+
+            <strong>Language:</strong>
+            <%= data['language'] %><br />
+
+            <strong>Comment:&nbsp;</strong>
+            <%= data['comment'] %>
+    </div>
+    <a href="/">Back to Form</a>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Survey Form</title>
+    <link rel="stylesheet" href="./css/styles.css">
+  </head>
+  <body>
+    <div id="form-panel">
+        <h1>Survey Form</h1>
+        <form action="/surveys" method="post">
+            <input type="text" name="name" placeholder="Your name" autofocus ><br />
+            <strong>Location:</strong><br />
+            <select name="location"><br />
+                <option value="Mars">Mars</option>
+                <option value"Venus">Venus</option>
+            </select><br />
+            <strong>Language:</strong></br>
+            <select name="language">
+                <option value="grunts">Primal</option>
+                <option value="florid">Fancy</option>
+            </select><br />
+            <textarea placeholder="Comments?" name="comment"></textarea><br />
+            <input type="submit" value="Submit" />
+        </form>
+
+    </div>
+  </body>
+</html>
