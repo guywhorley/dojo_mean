@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Survey Form</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script> <!-- from socket.io module -->
+    <script>
+        $(document).ready(function() {
+            var socket = io.connect(); //connect to server
+            // submit event
+            $("#submit").click(function(event) {
+                // stop the actual submit event from propogating. Stay on this page.
+                event.preventDefault();
+                // get form data and serialize as JSON data
+                $('#emit').html('');
+                // bodyParser grabs form data automatically (everything w/ 'name' attr)
+                var form_data = $('form').serialize();
+                socket.emit("posting_form", form_data);
+            });
+            socket.on('updated_message', function(data) {
+                console.log("in updated_message");
+                console.log(">> incoming data: ", data);
+                // this is how JSON data is 'deserialized' for display on client side
+                $('<p>You emitted ' + JSON.stringify(data) + '</p>').appendTo('#emit');
+            socket.on('random_number', function(data) {
+                // data is only a single number; no need to deserialize
+                $('<p>Your special random number is: ' + data + '</p>').appendTo('#emit');
+            });
+        }); //outer
+    </script>
+  </head>
+  <body>
+    <div id="emit"></div>
+    <div id="form-panel">
+        <h1>Survey Form</h1>
+        <form action="/surveys" method="post">
+            <input type="text" name="name" placeholder="Your name" autofocus ><br />
+            <strong>Location:</strong><br />
+            <select name="location"><br />
+                <option value="Mars">Mars</option>
+                <option value"Venus">Venus</option>
+            </select><br />
+            <strong>Language:</strong></br>
+            <select name="language">
+                <option value="grunts">Primal</option>
+                <option value="florid">Fancy</option>
+            </select><br />
+            <textarea placeholder="Comments?" name="comment"></textarea><br />
+            <input id="submit" type="submit" value="Submit" />
+        </form>
+
+    </div>
+  </body>
+</html>

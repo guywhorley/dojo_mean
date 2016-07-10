@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sockets</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <!-- jquery helps make socket handling easier -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script> <!-- from socket.io module -->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var socket = io.connect(); //connect to server
+            $('button').click(function() {
+                socket.emit("button_clicked", {reason: "Some random reason!"});
+            });
+            socket.on('server_response', function(data) {
+                console.log('The server says: ', data.response);
+            });
+        })
+    </script>
+  </head>
+  <body>
+    <h1>Sockets</h1>
+    <button>Click Me!</button>
+
+
+  </body>
+</html>
