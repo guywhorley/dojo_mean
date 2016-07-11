@@ -8,7 +8,6 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 // require express  to use it
 var express = require('./config/express');
-// var express = require('express');
 var app = express();
 
 // === open connection ===
@@ -34,7 +33,7 @@ io.sockets.on('connection', function(socket) {
     socket.emit('updated_message', msg);
     var r = rand();
     console.log(">> Random number: ", r);
-    socket.emit('random_number', r);    
+    socket.emit('random_number', r);
   });
 
   function rand() {

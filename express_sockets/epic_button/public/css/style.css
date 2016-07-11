@@ -1,0 +1,41 @@
+* {
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-family: "Courier";
+}
+img {
+  float: left;
+  width: 150px;
+  height: 150px;
+  border-radius: 75px;
+}
+h1 { font-size: 2.0rem; }
+.content {
+  margin-top: 40px;
+}
+#btn-push {
+  font-size: 14px;
+}
+#pushed { font-size: 1.5em; }
+#btn-epic:hover { background-color: red; color: white; }
+#btn-epic {
+  font-size: 24px;
+  background-color: darkred;
+  color: black;
+  margin-top: 10px;
+  padding: 20px;
+}
+#btn-epic, #btn-reset {
+  border-radius: 5px;
+  font-family: cursive;
+  border: none;
+  font-weight: 300;
+  color: lightgray;
+}
+#btn-reset:hover { background-color: orange; color: white; }
+#btn-reset {
+  background-color: darkorange;
+  margin-top: 20px;
+  padding: 5px 10px;
+}

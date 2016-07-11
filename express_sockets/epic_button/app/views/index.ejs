@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script> <!-- from socket.io module -->
+    <script>
+        $(document).ready(function() {
+            var socket = io.connect();
+            // emit update count - clicking button
+            $('#btn-epic').click(function(event) {
+                socket.emit('epic_click');
+                console.log('Client emitting epic_click');
+            });
+            // listen for update_count from server
+            socket.on('updated_count', function(data) {
+                $('#pushed').text(data);
+            });
+            // emit reset count
+            $('#btn-reset').click(function(){
+                socket.emit('reset_count');
+            });
+        });
+    </script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <div class="content">
+        <h3>The button has been pushed <span id="pushed">0</span> times.<h3>
+            <h4>(Push the big red button to update the count!)</h4>
+        <div id="btn-push">
+            <button id="btn-epic">The Big Red Button</button>
+        </div>
+        <button id="btn-reset">Reset count</button>
+    </div>
+  </body>
+</html>
