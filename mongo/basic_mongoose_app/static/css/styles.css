@@ -1,0 +1,31 @@
+body {
+  background-color: black;
+  color: gray;
+  text-align: center;
+  font-family: 'Courier';
+}
+input, input[type=submit] {
+  padding: 5px 0 5px 5px;
+}
+input[type=submit] {
+  margin-top: 5px;
+  background-color: darkorange;
+  color: white;
+  width: 165px;
+  border: none;
+}
+input[type=submit]:hover {
+  background-color: orange;
+  font-weight: 500;
+}
+table {
+  width: 200px;
+  margin: 50px auto;
+}
+td, th, caption {
+  text-align: left;
+}
+caption {
+  margin: 5px 0;
+  color: darkorange;
+}

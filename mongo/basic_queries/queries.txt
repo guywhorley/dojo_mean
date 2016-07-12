@@ -1,0 +1,104 @@
+
+> show dbs
+local  0.000GB
+
+CREATE DATABASE
+
+> use my_first_db
+switched to db my_first_db
+
+INSERT DOCUMENTS
+
+> db.students.insert({name:'a',state:'WA',lucky_number:1, birthday: {month: 1, day: 15, year:1980}})
+WriteResult({ "nInserted" : 1 })
+
+> db.students.insert({name:'b',state:'WA',lucky_number:3, birthday: {month: 2, day: 15, year:1980}})
+WriteResult({ "nInserted" : 1 })
+
+> db.students.insert({name:'c',state:'CA',lucky_number:5, birthday: {month: 3, day: 15, year:1980}})
+WriteResult({ "nInserted" : 1 })
+
+> db.students.insert({name:'d',state:'CA',lucky_number:6, birthday: {month: 4, day: 15, year:1980}})
+WriteResult({ "nInserted" : 1 })
+
+> db.students.insert({name:'e',state:'CA',lucky_number:8, birthday: {month: 4, day: 25, year:1990}})
+WriteResult({ "nInserted" : 1 })
+
+FIND ALL
+
+> db.students.find()
+{ "_id" : ObjectId("5783dab5038a5628c5db6157"), "name" : "a", "state" : "WA", "lucky_number" : 1, "birthday" : { "month" : 1, "day" : 15, "year" : 1980 } }
+{ "_id" : ObjectId("5783dad1038a5628c5db6158"), "name" : "b", "state" : "WA", "lucky_number" : 3, "birthday" : { "month" : 2, "day" : 15, "year" : 1980 } }
+{ "_id" : ObjectId("5783dae1038a5628c5db6159"), "name" : "c", "state" : "CA", "lucky_number" : 5, "birthday" : { "month" : 3, "day" : 15, "year" : 1980 } }
+{ "_id" : ObjectId("5783daf1038a5628c5db615a"), "name" : "d", "state" : "CA", "lucky_number" : 6, "birthday" : { "month" : 4, "day" : 15, "year" : 1980 } }
+{ "_id" : ObjectId("5783db0b038a5628c5db615b"), "name" : "e", "state" : "CA", "lucky_number" : 8, "birthday" : { "month" : 4, "day" : 25, "year" : 1990 } }
+
+$OR
+ 
+> db.students.find({$or:[{state: 'CA'},{state: 'OR'}]})
+{ "_id" : ObjectId("5783dae1038a5628c5db6159"), "name" : "c", "state" : "CA", "lucky_number" : 5, "birthday" : { "month" : 3, "day" : 15, "year" : 1980 } }
+{ "_id" : ObjectId("5783daf1038a5628c5db615a"), "name" : "d", "state" : "CA", "lucky_number" : 6, "birthday" : { "month" : 4, "day" : 15, "year" : 1980 } }
+{ "_id" : ObjectId("5783db0b038a5628c5db615b"), "name" : "e", "state" : "CA", "lucky_number" : 8, "birthday" : { "month" : 4, "day" : 25, "year" : 1990 } }
+
+$gt
+
+> db.students.find( { lucky_number: { $gt: 3} } )
+{ "_id" : ObjectId("5783dae1038a5628c5db6159"), "name" : "c", "state" : "CA", "lucky_number" : 5, "birthday" : { "month" : 3, "day" : 15, "year" : 1980 } }
+{ "_id" : ObjectId("5783daf1038a5628c5db615a"), "name" : "d", "state" : "CA", "lucky_number" : 6, "birthday" : { "month" : 4, "day" : 15, "year" : 1980 } }
+{ "_id" : ObjectId("5783db0b038a5628c5db615b"), "name" : "e", "state" : "CA", "lucky_number" : 8, "birthday" : { "month" : 4, "day" : 25, "year" : 1990 } }
+
+$lte
+
+> db.students.find( { lucky_number: {$lte: 6} } )
+{ "_id" : ObjectId("5783dab5038a5628c5db6157"), "name" : "a", "state" : "WA", "lucky_number" : 1, "birthday" : { "month" : 1, "day" : 15, "year" : 1980 } }
+{ "_id" : ObjectId("5783dad1038a5628c5db6158"), "name" : "b", "state" : "WA", "lucky_number" : 3, "birthday" : { "month" : 2, "day" : 15, "year" : 1980 } }
+{ "_id" : ObjectId("5783dae1038a5628c5db6159"), "name" : "c", "state" : "CA", "lucky_number" : 5, "birthday" : { "month" : 3, "day" : 15, "year" : 1980 } }
+{ "_id" : ObjectId("5783daf1038a5628c5db615a"), "name" : "d", "state" : "CA", "lucky_number" : 6, "birthday" : { "month" : 4, "day" : 15, "year" : 1980 } }
+
+$gte AND $lte
+
+> db.students.find( { $and: [ {lucky_number: {$gte:1}},{lucky_number: {$lte:9}}] } )
+{ "_id" : ObjectId("5783dab5038a5628c5db6157"), "name" : "a", "state" : "WA", "lucky_number" : 1, "birthday" : { "month" : 1, "day" : 15, "year" : 1980 } }
+{ "_id" : ObjectId("5783dad1038a5628c5db6158"), "name" : "b", "state" : "WA", "lucky_number" : 3, "birthday" : { "month" : 2, "day" : 15, "year" : 1980 } }
+{ "_id" : ObjectId("5783dae1038a5628c5db6159"), "name" : "c", "state" : "CA", "lucky_number" : 5, "birthday" : { "month" : 3, "day" : 15, "year" : 1980 } }
+{ "_id" : ObjectId("5783daf1038a5628c5db615a"), "name" : "d", "state" : "CA", "lucky_number" : 6, "birthday" : { "month" : 4, "day" : 15, "year" : 1980 } }
+{ "_id" : ObjectId("5783db0b038a5628c5db615b"), "name" : "e", "state" : "CA", "lucky_number" : 8, "birthday" : { "month" : 4, "day" : 25, "year" : 1990 } }
+
+Update Multiple while preserving original data (no overwrites)
+
+> db.students.update( {'lucky_number': {$gt: -1}}, {$set: {interests: ['coding', 'brunch', 'MongoDB']}},{multi: true} )
+WriteResult({ "nMatched" : 4, "nUpserted" : 0, "nModified" : 3 })
+
+UPDATE DOCUMENT ARRAY WITH NEW INTEREST
+
+> db.students.update({name: 'A'}, {$push: {interests: 'Cats'}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+REMOVE SPECIFIC VALUE FROM ARRAY
+
+> db.students.update({name: 'e'}, {$pull: {interests: 'taxes'}} )
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+ADD DATE FIELD
+
+> db.students.update({'belts_earned': {$gt: -1}}, {$set: {'updated_on':new Date()}},{multi: true} )
+
+DELETE MULTIPLE RECORDS
+
+> db.students.remove( {state:'CA'} )
+
+DELETE LIMIT ONE
+
+> db.students.remove({lucky_number: {$gt: 5}}, true )
+
+UPDATE NUMBER OF BELTS 
+
+> db.students.update({'number_of_belts': {$lt: 1}},{$set: {'number_of_belts': 1} } )
+
+RENAME A FIELD
+
+> db.students.updateMany( {}, { $rename: {'number_of_belts': 'belts_earned'}} )
+
+REMOVE A FIELD
+
+> db.students.update({'name': 'b'}, {$unset: { lucky_number:""}} )
