@@ -1,0 +1,30 @@
+ <div id="main"  ng-controller="PlayersController">
+    <fieldset>
+      <legend>Players</legend>
+      <div id="top">
+        <h2>Add New Player</h2>
+        <input type="text" placeholder="Player name" ng-model="newPlayer"> 
+        <button ng-click="addPlayer()">Add Player</button>
+      </div>
+       <div class="bottom">
+        
+        <table>
+          <thead>
+            <th>
+              <a href="" ng-clicK="orderByField = 'player'; reverseSort = !reverseSort">
+                Player Name
+                <span ng-show="orderByField == 'player' && !reverseSort">(desc)</span>
+                <span ng-show="orderByField == 'player' && reverseSort">(asc)</span>              
+              </a>
+            </th>
+            <th>Actions</th>
+          </thead>
+          <tbody>
+            <tr ng-repeat="player in players | orderBy:player:reverseSort">
+              <td>{{ player }}</td>
+              <td><button ng-click="removePlayer($index)">Remove Player</button></td>
+            </tr>
+          </tbody>
+        </table>
+    </fieldset>
+  </div>   

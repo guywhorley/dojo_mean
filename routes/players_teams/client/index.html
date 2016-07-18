@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="utf-8">
+  <title>Index.html</title>
+  <script src="./angular/angular.min.js"></script>
+  <script src="./angular-route/angular-route.min.js"></script>
+</head>
+<body>
+  <a href="#/players">Players<a> | <a href="#/teams">Teams<a> | <a href="#/associations">Associations</a>
+  <hr>  
+
+  <div ng-view></div>
+
+  <hr>
+  <h5>Footer<h5>
+
+<script>
+  var app = angular.module('app', ['ngRoute']);
+  
+  // factories 
+  app.factory('PlayersFactory', function() {
+    var factory = {}; 
+    var players = ['Bob', 'Mike', 'Jonas', 'Kendra', 'Sam', 'Xena', 'Hercules', 'Loki'];
+    
+    factory.getPlayers = function() {
+      return players;
+    }
+
+    factory.addPlayer = function (player) {
+      players.push(player);
+    }
+
+    factory.removePlayer = function (idx) {
+      players.splice(idx,1);
+    }
+
+    return factory;
+  })
+
+  app.factory('TeamsFactory', function() {
+    var factory = {}; 
+    var teams = ['Chaos', 'Beauty', 'Druidic-UK', 'AncientOnes'];
+    
+    factory.getTeams = function() {
+      return teams;
+    }
+
+    factory.addTeam = function (team) {
+      teams.push(team);
+    }
+
+    factory.removeTeam = function (idx) {
+      teams.splice(idx,1);
+    }
+
+    return factory;
+  })
+
+  app.factory('AssociationsFactory', function() {
+    var factory = {}; 
+    var assignments = [
+      { player: 'Bob', team: 'Chaos' },
+      { player: 'Xena', team: 'Beauty' },
+      { player: 'Loki', team: 'AncientOnes' },
+    ]
+    factory.getAssignments = function() {
+      return assignments;
+    }
+
+    factory.addAssignment = function (player, team) {
+      var temp = {
+        player: player,
+        team: team
+      }
+      assignments.push(temp);
+    }
+
+    factory.removeAssignment = function (idx) {
+      assignments.splice(idx,1);
+    }
+
+    return factory;
+  })
+ 
+  // === routes === 
+  app.config(function ($routeProvider) {
+    $routeProvider
+      .when('/', {
+        templateUrl: 'partials/players.html',
+        controller: 'PlayersController'
+      })
+      .when('/players', {
+        templateUrl: 'partials/players.html',
+        controller: 'PlayersController'
+      })
+      .when('/teams', {
+        templateUrl: 'partials/teams.html',
+        controller: 'TeamsController'
+      })
+      .when('/associations', {
+        templateUrl: 'partials/associations.html',
+        controller: 'AssociationsController'
+      })
+  })
+
+  // === controllers ===
+  app.controller('PlayersController', ['$scope', 'PlayersFactory', '$location', function($scope, PlayersFactory, $location) {
+    // for sorting table rows 
+    $scope.orderByField = "player";
+    $scope.reverseSort = false; 
+    $scope.players = PlayersFactory.getPlayers();
+
+    // add player 
+    $scope.addPlayer = function () {
+      if (!$scope.newPlayer) { return; }
+      PlayersFactory.addPlayer($scope.newPlayer);
+      $scope.newPlayer = null; 
+    }
+
+    // remove player 
+    $scope.removePlayer = function (idx) {
+      PlayersFactory.removePlayer(idx);
+    }
+  }])
+
+  app.controller('TeamsController', ['$scope', 'TeamsFactory', '$location', function($scope, TeamsFactory, $location){
+    // for sorting table rows 
+    $scope.orderByField = "team";
+    $scope.reverseSort = false; 
+    $scope.teams = TeamsFactory.getTeams();
+
+    // add team 
+    $scope.addTeam = function () {
+      if (!$scope.newTeam) { return; }
+      TeamsFactory.addTeam($scope.newTeam);
+      $scope.newTeam = null;
+    }
+    
+    // remove team 
+    $scope.removeTeam = function (idx) {
+      TeamsFactory.removeTeam(idx);
+    }
+  }])
+
+  app.controller('AssociationsController', ['$scope', 'AssociationsFactory', 'PlayersFactory', 'TeamsFactory', '$location', function($scope, AssociationsFactory, PlayersFactory, TeamsFactory, $location) {
+     // for sorting table rows 
+    $scope.orderByField = "player";
+    $scope.reverseSort = false; 
+    
+    // get factory data 
+    $scope.assignments = AssociationsFactory.getAssignments();
+    $scope.players = PlayersFactory.getPlayers();
+    $scope.teams = TeamsFactory.getTeams();
+
+    // add association
+    $scope.addAssignment = function () {
+      if (!$scope.playerselect || !$scope.teamselect) { return; }
+      AssociationsFactory.addAssignment($scope.playerselect, $scope.teamselect);
+      $scope.playerselect = null;
+      $scope.teamselect = null;
+     }
+
+    // remove association 
+    $scope.removeAssignment = function (idx) {
+      AssociationsFactory.removeAssignment(idx);
+    }
+
+  }])
+
+
+</script>
+</body>
+</html>
