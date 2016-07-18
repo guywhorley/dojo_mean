@@ -59,8 +59,10 @@
     })
 
    // build the controllers 
-    app.controller('CustomizeUsersController', ['$scope', 'usersFactory', function ($scope, usersFactory) {
+    app.controller('CustomizeUsersController', ['$scope', 'usersFactory', '$location', function ($scope, usersFactory, $location) {
      
+      console.log($location.url);
+
      // for sorting table rows 
       $scope.orderByField = "user.fname";
       $scope.reverseSort = false; 
@@ -70,6 +72,7 @@
         if (!$scope.newUser.fname || !$scope.newUser.lname || !$scope.newUser.lang) { return; }
         usersFactory.create($scope.newUser);
         $scope.newUser = null;
+        $location.url('/users')
       }
 
       $scope.removeUser = function (idx) {
