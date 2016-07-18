@@ -1,0 +1,52 @@
+
+  <!-- PRODUCTS VIEW -->
+  <div id="main"  ng-controller="CustomizeUsersController">
+    <fieldset>
+      <legend>Customize Users</legend>
+      <div id="top">
+        <h2>Add New User</h2>
+        <input type="text" placeholder="First name" ng-model="newUser.fname"> 
+        <input type="text" placeholder="Last name" ng-model="newUser.lname">
+        <input type="text" placeholder="Favorite Language" ng-model="newUser.lang"> 
+        <button ng-click="addUser()">Add User</button>
+      </div>
+       <div class="bottom">
+        <h2>User List</h2>
+        <table>
+          <thead>
+            <th>
+              <a href="" ng-clicK="orderByField = 'user.fname'; reverseSort = !reverseSort">
+                First Name
+                <span ng-show="orderByField == 'user.fname' && !reverseSort">(desc)</span>
+                <span ng-show="orderByField == 'user.fname' && reverseSort">(asc)</span>              
+              </a>
+            </th>
+            <th>
+              <a href=""" ng-clicK="orderByField = 'user.lname'; reverseSort = !reverseSort">
+                Last Name
+                <span ng-show="orderByField == 'user.lname' && !reverseSort">(desc)</span>
+                <span ng-show="orderByField == 'user.lname' && reverseSort">(asc)</span>    
+              </a>
+            </th>
+            <th>
+              <a href="" ng-clicK="orderByField = 'user.lang'; reverseSort = !reverseSort">
+                Favorite Language
+                <span ng-show="orderByField == 'user.lang' && !reverseSort">(desc)</span>
+                <span ng-show="orderByField == 'user.lang' && reverseSort">(asc)</span>    
+              </a>
+            </th>
+            <th>Actions</th>
+          </thead>
+          <tbody>
+            <tr ng-repeat="user in users | orderBy:orderByField:reverseSort">
+              <td>{{ user.fname }}</td>
+              <td>{{ user.lname }}</td>
+              <td>{{ user.lang }}</td>
+              <td><button ng-click="removeUser($index)">Delete User</button></td>
+            </tr>
+          </tbody>
+        </table>
+    </fieldset>
+  </div>   
+
+

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script src='./angular/angular.min.js'></script>
+  <script src='./angular-route/angular-route.min.js'></script>
+  <script>
+    var app = angular.module('app', ['ngRoute']);
+    
+    // factory 
+    app.factory('usersFactory', function() {
+      var factory = {}; 
+      var users = [
+       { fname: 'John', lname: 'Doe', lang: 'Ruby' },
+       { fname: 'Jane', lname: 'Smith', lang: 'Javascript' },
+       { fname: 'Mark', lname: 'Johnson', lang: 'Java' },
+      ]; 
+      
+      //get all users
+      factory.index = function() {
+        return users;
+      }
+      
+      // add new user
+      factory.create = function(user) {
+        console.log('user: ', user);
+        users.push(user);
+      }
+      
+      // delete user at idx
+      factory.delete = function(idx) {
+        users.splice(idx,1);
+      }
+
+      // show user
+      factory.show = function (idx) {
+        return users[idx]; 
+      }
+      // last thing you must do is to return the factory
+      return factory; 
+    })
+
+    // set routes
+    app.config(function ($routeProvider) {
+
+      $routeProvider
+        .when('/', {
+          templateUrl: 'partials/customizeUsers.html',
+          controller: 'CustomizeUsersController'
+        
+      })
+        .when('/users', {
+          templateUrl: 'partials/userList.html',
+          controller: 'UserListController'
+        })
+        .otherwise( { redirectTo: '/' 
+      })
+    })
+
+   // build the controllers 
+    app.controller('CustomizeUsersController', ['$scope', 'usersFactory', function ($scope, usersFactory) {
+     
+     // for sorting table rows 
+      $scope.orderByField = "user.fname";
+      $scope.reverseSort = false; 
+      $scope.users = usersFactory.index();
+
+      $scope.addUser = function () {
+        if (!$scope.newUser.fname || !$scope.newUser.lname || !$scope.newUser.lang) { return; }
+        usersFactory.create($scope.newUser);
+        $scope.newUser = null;
+      }
+
+      $scope.removeUser = function (idx) {
+        usersFactory.delete(idx);
+      }
+
+
+    }]);
+    app.controller('UserListController', ['$scope', 'usersFactory', function($scope, usersFactory) {
+      // for sorting table rows 
+      $scope.orderByField = "user.fname";
+      $scope.reverseSort = false; 
+      
+      $scope.users = usersFactory.index();
+      console.log('controller')
+    }]);
+  </script>
+
+</head>
+<body>
+  <h5>header</h5>
+  <a href="#/">Customize Users</a> | <a href="#/users">List Users</a>
+  <hr>
+
+  <div ng-view=""></div> 
+  <!--<h1>You've reached index.html</h1>-->
+  
+  <h5>Footer</h5>
+</body>
+</html>

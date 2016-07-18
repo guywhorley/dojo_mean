@@ -1,0 +1,42 @@
+ <!-- LIST VIEW -->
+  <div id="main"  ng-controller="UserListController">
+    <fieldset>
+      <legend>List Users</legend>
+       <div class="bottom">
+        <h2>User List</h2>
+        <table>
+          <thead>
+            <th>
+              <a href="" ng-clicK="orderByField = 'user.fname'; reverseSort = !reverseSort">
+                First Name
+                <span ng-show="orderByField == 'user.fname' && !reverseSort">(desc)</span>
+                <span ng-show="orderByField == 'user.fname' && reverseSort">(asc)</span>              
+              </a>
+            </th>
+            <th>
+              <a href=""" ng-clicK="orderByField = 'user.lname'; reverseSort = !reverseSort">
+                Last Name
+                <span ng-show="orderByField == 'user.lname' && !reverseSort">(desc)</span>
+                <span ng-show="orderByField == 'user.lname' && reverseSort">(asc)</span>    
+              </a>
+            </th>
+            <th>
+              <a href="" ng-clicK="orderByField = 'user.lang'; reverseSort = !reverseSort">
+                Favorite Language
+                <span ng-show="orderByField == 'user.lang' && !reverseSort">(desc)</span>
+                <span ng-show="orderByField == 'user.lang' && reverseSort">(asc)</span>    
+              </a>
+            </th>
+           </thead>
+          <tbody>
+            <tr ng-repeat="user in users | orderBy:orderByField:reverseSort">
+              <td>{{ user.fname }}</td>
+              <td>{{ user.lname }}</td>
+              <td>{{ user.lang }}</td>
+           </tr>
+          </tbody>
+        </table>
+    </fieldset>
+  </div>   
+
+
