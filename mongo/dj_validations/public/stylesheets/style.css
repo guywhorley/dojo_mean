@@ -1,0 +1,34 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: gray;
+}
+
+.skip {
+  margin-top: 10px;
+  margin-left: 26ch;
+}
+
+.back { margin-left: 50ch; }
+input {
+  width: 41ch;
+  padding: 5px 0 5px 0;
+  margin: 3px 0;
+}
+
+input[type=submit] {
+  margin: 0;
+  border: none;
+  background-color: darkgreen;
+  color: white;
+}
+.main {
+  overflow-y: scroll;
+  height: 300px;
+  width: 500px;
+}
+quote { font-size: .9em; }
+.author { font-size: 0.8em; margin-left: 8ch; }

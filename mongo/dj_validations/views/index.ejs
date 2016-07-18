@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <div class="main">
+      <form action="/quotes" method="post">
+        <input type="text" name="name" placeholder="Your Name"><br>
+        <textarea name="quote" rows="8" cols="40" placeholder="Enter your Witty Quote..."></textarea>   <br>
+       <input type="submit" value="Add my quote!"><br>
+       <div class="skip"><a href="/quotes">Skip to Quotes!</a></div>
+      </form>
+    </div>
+  </body>
+</html>

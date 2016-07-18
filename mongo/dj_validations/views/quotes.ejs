@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+      <h1>Hear are the awesome quotes!</h1>
+      <div class="main">
+      <% if (quotes) {%>
+        <% for (i in quotes) { %>
+            <p>
+              <q><%=quotes[i].quote %></q><br>
+              <span class="author">-<%=quotes[i].author%> at <%= quotes[i].createdAt%></span>
+              <hr>
+            </p>
+        <% } %>
+      <% } %>
+    </div>
+    <a class="back" href="/">Add a Quote</a>
+  </body>
+</html>

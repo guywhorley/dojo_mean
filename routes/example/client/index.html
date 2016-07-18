@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="utf-8">
+  <title>Angular Routes Example</title>
+  <script src='./angular/angular.min.js'></script>
+  <script src='./angular-route/angular-route.min.js'></script>
+  <script>
+
+    var app = angular.module('app', ['ngRoute']);
+    
+    // setting up routes to the partials
+    app.config(function ($routeProvider) {
+      $routeProvider
+        .when('/', {
+          templateUrl: 'partials/partial1.html',
+          controller: 'view1Controller'
+
+        })
+        .when('/partial2', {
+          templateUrl: 'partials/partial2.html',
+          controller: 'view2Controller'
+        })
+        .otherwise({
+          redirectTo: '/'
+        })      
+    })
+
+    app.controller('view1Controller', function($scope) {
+      $scope.sports = ['golf', 'basketball', 'hockey', 'tennis', 'football', 'baseball'];
+    });
+
+    app.controller('view2Controller', function ($scope) {
+      $scope.message = "We are using a different controller";
+    })
+
+  </script>
+</head>
+<body>
+  <div ng-view>
+    <!-- partials go here -->
+  </div>
+  <h1>Hello World</h1>
+  <a href="#/">Partial1</a>
+  <a href="#/partial2">Partial2</a>
+</body>
+</html>
