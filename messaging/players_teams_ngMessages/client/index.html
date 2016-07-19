@@ -5,6 +5,9 @@
   <title>Index.html</title>
   <script src="./angular/angular.min.js"></script>
   <script src="./angular-route/angular-route.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-messages.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+
 </head>
 <body>
   <a href="#/players">Players<a> | <a href="#/teams">Teams<a> | <a href="#/associations">Associations</a>
@@ -16,7 +19,7 @@
   <h5>Footer<h5>
 
 <script>
-  var app = angular.module('app', ['ngRoute']);
+  var app = angular.module('app', ['ngRoute', 'ngMessages']);
   
   // factories 
   app.factory('PlayersFactory', function() {
@@ -112,15 +115,17 @@
   app.controller('PlayersController', ['$scope', 'PlayersFactory', '$location', function($scope, PlayersFactory, $location) {
     // for sorting table rows 
     $scope.orderByField = "player";
+    $scope.newPlayer="Enter Player Name"; // set value to be an actual string 
     $scope.reverseSort = false; 
     $scope.players = PlayersFactory.getPlayers();
 
     // add player 
     $scope.addPlayer = function () {
-      if (!$scope.newPlayer) { return; }
+      // don't add if default placeholder text is passed in
+      if (!$scope.newPlayer || $scope.newPlayer==='Enter Player Name') { return; }
       PlayersFactory.addPlayer($scope.newPlayer);
-      $scope.newPlayer = null; 
-    }
+      $scope.newPlayer="Enter Player Name";
+     }
 
     // remove player 
     $scope.removePlayer = function (idx) {
@@ -138,12 +143,13 @@
     $scope.orderByField = "team";
     $scope.reverseSort = false; 
     $scope.teams = TeamsFactory.getTeams();
+    $scope.newTeam = "Enter Team Name"
 
     // add team 
     $scope.addTeam = function () {
-      if (!$scope.newTeam) { return; }
+      if (!$scope.newTeam || $scope.newTeam === 'Enter Team Name') { return; }
       TeamsFactory.addTeam($scope.newTeam);
-      $scope.newTeam = null;
+      $scope.newTeam = 'Enter Team Name';
     }
     
     // remove team 

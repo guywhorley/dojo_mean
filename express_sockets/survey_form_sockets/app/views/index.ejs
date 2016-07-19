@@ -6,28 +6,31 @@
     <title>Survey Form</title>
     <link rel="stylesheet" href="./css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script> <!-- from socket.io module -->
+    <script src="/socket.io/socket.io.js"></script>
     <script>
         $(document).ready(function() {
+            console.log('>> index.ejs...');
             var socket = io.connect(); //connect to server
             // submit event
             $("#submit").click(function(event) {
                 // stop the actual submit event from propogating. Stay on this page.
-                event.preventDefault();
+
                 // get form data and serialize as JSON data
                 $('#emit').html('');
                 // bodyParser grabs form data automatically (everything w/ 'name' attr)
                 var form_data = $('form').serialize();
                 socket.emit("posting_form", form_data);
+                event.preventDefault();
             });
             socket.on('updated_message', function(data) {
-                console.log("in updated_message");
-                console.log(">> incoming data: ", data);
-                // this is how JSON data is 'deserialized' for display on client side
-                $('<p>You emitted ' + JSON.stringify(data) + '</p>').appendTo('#emit');
-            socket.on('random_number', function(data) {
+              console.log("in updated_message");
+              console.log(">> incoming data: ", data);
+              // this is how JSON data is 'deserialized' for display on client side
+              $('<p>You emitted ' + JSON.stringify(data) + '</p>').appendTo('#emit');
+              socket.on('random_number', function(data) {
                 // data is only a single number; no need to deserialize
                 $('<p>Your special random number is: ' + data + '</p>').appendTo('#emit');
+              });
             });
         }); //outer
     </script>
@@ -49,7 +52,7 @@
                 <option value="florid">Fancy</option>
             </select><br />
             <textarea placeholder="Comments?" name="comment"></textarea><br />
-            <input id="submit" type="submit" value="Submit" />
+            <input id="submit" type="submit" value="Submit"  />
         </form>
 
     </div>

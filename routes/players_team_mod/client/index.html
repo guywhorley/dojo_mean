@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="utf-8">
+  <title>Index.html</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="./angular/angular.min.js"></script>
+  <script src="./angular-route/angular-route.min.js"></script>
+  <script src="./app/app.js"></script> 
+  <script src="./app/routes.js"></script>
+  <script src="./factories/associationsfactory.js"></script>
+  <script src="./factories/playersfactory.js"></script>
+  <script src="./factories/teamsfactory.js"></script>
+  <script src="./controllers/associationscontroller.js"></script>
+  <script src="./controllers/playerscontroller.js"></script>
+  <script src="./controllers/teamcontroller.js"></script>
+  <script src="./controllers/teamscontroller.js"></script>
+</head>
+<body>
+  <!-- header -->
+  <a href="#/players">Players<a> | <a href="#/teams">Teams<a> | <a href="#/associations">Associations</a>
+  <hr>
+
+  <!-- content -->
+  <div class="main" ng-view></div>
+  <hr>
+
+  <!-- footer -->
+  <h5>Footer<h5>
+</body>
+</html>
