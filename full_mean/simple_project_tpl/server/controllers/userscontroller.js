@@ -1,4 +1,4 @@
-// controller: fetch data from database
+ controller: fetch data from database
 // must load the associated model since db calls are made here
 
 console.log('>> Loading: /server/controllers/userscontroller.js"')
