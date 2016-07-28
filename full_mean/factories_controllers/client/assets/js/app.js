@@ -2,33 +2,23 @@
 console.log('>> Loading: "client/assets/js/app.js"');
 
 // application for all further work - 'app'
-var app = angular.module('app', ['ngRoute']) // inject Route service
+// inject Route provider for client-side spa routing
+var app = angular.module('app', ['ngRoute']); 
 
 // === Routes ===
 app.config(function ($routeProvider) {
-  // angular routing here...
+ 
   $routeProvider
     .when('/', {
-      //controller: './controllers/FriendsController',
+      //controller: 'EditController',
       templateUrl: '../partials/index.html'
     })
     .when ('/friends/new', {
-        //controller: './controllers/friendsController',
+        controller: 'NewController',
         templateUrl: '../partials/new.html'
     })
     .when('/friends/:id/edit', {
-          //controller: './controllers/FriendsController',
+          controller: 'EditController',
           templateUrl: '../partials/edit.html'
-
-    })
-
+    });
 });
-
-// === Controllers ===
-app.controller('FriendsController', ['$scope', 'FriendsFactory', '$location', function ($scope, FriendsFactory, $location) {
-
-    console.log('>> Loading: "client/assets/controllers/FriendsController.js"');
-
-
-
-}]);
