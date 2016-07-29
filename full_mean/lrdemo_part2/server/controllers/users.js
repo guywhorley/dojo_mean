@@ -18,11 +18,25 @@ module.exports = {
     })
   },
 
+  // get session
+  session: function(req,res) {
+    console.log('hit session route')
+    if (req.session['userInfo']) { 
+      res.json({status: true, userInfo: req.session['userInfo']})
+    } else {
+      res.json({status: false, userInfo: null})
+    }
+  },
+
+
   // login existing user
   login: function (req, res) {
     User.findOne({email: req.body.email}, function (err, user) {
-      if (err) { res.json({status: false, errors: err}) } 
-      else if (user) {
+      if (err) { 
+        console.log(">> srv.ctr.users.login: db-err: ", err)
+        res.json({status: false, errors: err}) } 
+      else if (user) { // user record is present - now, check for pwd match
+        console.log("(srv.ctl.users.login) User found! :) db-return: user=", user)
         if (user.validPassword(req.body.password)) {
           req.session['userInfo'] = {
             id: user._id,
@@ -30,9 +44,14 @@ module.exports = {
           }
           res.json({ status: true, userInfo: req.session['userInfo']})
         } else {
-          res.json({status: false, errors: 'Problem. Try again!'})
+          console.log(">> srv.ctl.users.login: invalid pwd")
+          res.json({status: false, errors: 'User/Password Problems!'})
         }
-      }
+       } else { // user is not present.
+         console.log(">> srv.ctl.users.login: user not found.")
+         res.json({status: false, errors: 'User not found!"'})
+       }
+
     })
   },
 

@@ -1,1 +1,4 @@
-<h2>partials/success.html</h2>
+<div ng-controller = 'usersController as UC'>
+  <h2>Welcome {{ UC.user.first_name }} You are logged in!</h2>
+  <button ng-click="UC.logout()">Logout</button>
+</div>

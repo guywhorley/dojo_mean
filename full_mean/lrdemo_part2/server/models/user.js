@@ -9,20 +9,23 @@ var UserSchema = new mongoose.Schema({
   first_name: {type: String, required: true, minlength: 2, maxlenght: 256},
   last_name: {type: String, required: true, minlength: 2, maxlength: 256},
   email: {type: String, required: true, minlength: 6, maxlength: 256, unique: true},
-  password: {type: String, required: true, minlength: 8, maxlength: 256}
+  password: {type: String, required: true, minlength: 1, maxlength: 256}
 }, {timestamps: true})
 
 // 2.5 Pre-save and compare password to hash
 UserSchema.methods.validPassword = function (enteredPassword) {
-  bcrypt.compareSync(enteredPassword, this.password)
-}
+  var same = bcrypt.compareSync(enteredPassword, this.password)
+  //console.log("password match: ", same)
+  return same;
+},
 
 UserSchema.pre('save', function (next) {
   var user = this
+
   bcrypt.genSalt(10, function (err, salt) {
     if (err) {
-      console.log('>> Error during password password encrypt!')
-    } else {
+       //console.log('>> Error during password password encrypt!')
+     } else {
       bcrypt.hash(user.password, salt, null, function (err, hash) {
         user.password = hash
         next()
