@@ -1,0 +1,28 @@
+body { 
+  background-color: black;
+  color: white;
+  font-family: Courier New, Courier, monospace;
+}
+
+.content {
+  width: 40%;
+  margin: 0 auto;
+}
+
+h1, h2 { 
+  margin-left: 7ch; 
+  /*text-align: left;*/
+ }
+
+input:hover { background-color: goldenrod; } 
+button:hover { background-color: orange; }
+button { 
+  border-radius: 5px; 
+  width: 22ch; 
+  margin-left: 14ch; 
+  background-color: darkorange;
+  color: white;
+  font-weight: 500;
+  border: 0px;
+  padding: 3px 0 3px 0;
+}

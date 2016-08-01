@@ -1,0 +1,18 @@
+<div class="content" ng-controller="usersController as UC">
+  <form>
+    <h2>Login</h2>
+    <p>Email &nbsp;&nbsp&nbsp;&nbsp;&nbsp;<input type="email" ng-model="UC.logInfo.email"></p>
+    <p>Password &nbsp;&nbsp;<input type="password" ng-model="UC.logInfo.password"></p>
+    <button ng-click="UC.login()">Login</button>
+  </form>
+ 
+  <form>
+    <h2>Register</h2>
+    <p>First Name <input type="text" ng-model="UC.regInfo.first_name"></input></p>
+    <p>Last Name &nbsp;<input type="text" ng-model="UC.regInfo.last_name"></input></p>
+    <p>Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="email" ng-model="UC.regInfo.email"></input></p>
+    <p>Password &nbsp;&nbsp;<input type="password" ng-model="UC.regInfo.password"></input></p>
+    <button ng-click="UC.register()">Register</button>
+  </form>
+  <p>{{UC}}</p>
+</div>
